@@ -18,6 +18,8 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{enumitem}
+\usepackage[round]{natbib}   % author-year-style citation hooks
+\bibliographystyle{ieeetr}  % numeric style: [1], [2], ...
 
 \hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black, citecolor=blue!60!black}
 
@@ -783,5 +785,12 @@ def noise_gated_kirsch_compass(image, k0=0.7, alpha=1.0, window_size=5):
     G_fused = rho * G_max + (1.0 - rho) * G_mean
     return np.clip(img + k0 * rho * G_fused, 0, 255)
 \end{lstlisting}
+
+% =========================================================================
+% References — bibliography database in references.bib
+% =========================================================================
+\nocite{*}    % include every bib entry even if not cited inline, so the
+             % reader can see the full reference list at the back
+\bibliography{references}
 
 \end{document}

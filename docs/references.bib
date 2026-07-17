@@ -1,0 +1,153 @@
+% =========================================================================
+% references.bib — bibliography for the CSE 4106 Spatial Filters report
+% Style: author-year, compatible with \bibliographystyle{plainnat} or
+%        \bibliographystyle{ieeetr}. Each entry is filled with the
+%        canonical publication info; cite keys match report.tex.
+% =========================================================================
+
+% ---- Textbooks and book chapters ----------------------------
+
+@book{gonzalez2018,
+  author    = {Rafael C. Gonzalez and Richard E. Woods},
+  title     = {Digital Image Processing},
+  edition   = {4th},
+  publisher = {Pearson},
+  address   = {New York, NY, USA},
+  year      = {2018},
+  note      = {ISBN 978-0133356724}
+}
+
+% ---- Original filter / operator references ------------------
+
+@article{sobel1970,
+  author  = {Irwin Sobel},
+  title   = {Camera Models and Machine Perception},
+  journal = {Stanford Artificial Intelligence Project Memo AIM-121},
+  year    = {1970},
+  note    = {Introduces the 3$\times$3 Sobel gradient kernels}
+}
+
+@article{huang1979,
+  author  = {T. S. Huang and G. J. Yang and G. Y. Tang},
+  title   = {A Fast Two-Dimensional Median Filtering Algorithm},
+  journal = {IEEE Transactions on Acoustics, Speech, and Signal Processing},
+  volume  = {27},
+  number  = {1},
+  pages   = {13--18},
+  year    = {1979},
+  doi     = {10.1109/TASSP.1979.1163187}
+}
+
+@article{kirsch1971,
+  author  = {Russell Kirsch},
+  title   = {Computer Determination of the Constituent Structure of Biological Images},
+  journal = {Computers and Biomedical Research},
+  volume  = {4},
+  number  = {3},
+  pages   = {315--328},
+  year    = {1971},
+  doi     = {10.1016/0010-4809(71)90034-6}
+}
+
+@article{lee1980,
+  author  = {Jong-Sen Lee},
+  title   = {Digital Image Enhancement and Noise Filtering by Use of Local Statistics},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  volume  = {PAMI-2},
+  number  = {2},
+  pages   = {165--168},
+  year    = {1980},
+  doi     = {10.1109/TPAMI.1980.4766994}
+}
+
+@article{immerkaer1996,
+  author  = {J. Immerk{\ae}r},
+  title   = {Fast Noise Variance Estimation},
+  journal = {Computer Vision and Image Understanding},
+  volume  = {64},
+  number  = {2},
+  pages   = {300--302},
+  year    = {1996},
+  doi     = {10.1006/cviu.1996.0060}
+}
+
+% ---- Noise and modelling -------------------------------------
+
+@article{lebrun2015,
+  author  = {Marc Lebrun and Miguel Colom and Jean-Michel Morel},
+  title   = {Multiscale Image Denoising in Arbitrary Noise Levels},
+  journal = {IEEE Transactions on Image Processing},
+  volume  = {24},
+  number  = {11},
+  pages   = {3375--3386},
+  year    = {2015},
+  doi     = {10.1109/TIP.2015.2441655}
+}
+
+% ---- Quality and edge metrics --------------------------------
+
+@article{wang2004,
+  author  = {Zhou Wang and Alan C. Bovik and Hamid R. Sheikh and Eero P. Simoncelli},
+  title   = {Image Quality Assessment: From Error Visibility to Structural Similarity},
+  journal = {IEEE Transactions on Image Processing},
+  volume  = {13},
+  number  = {4},
+  pages   = {600--612},
+  year    = {2004},
+  doi     = {10.1109/TIP.2003.819861}
+}
+
+@article{sattar1997,
+  author  = {F. Sattar and L. Floreby and G. Salomonsson and B. Lovstrom},
+  title   = {Image Enhancement Based on a Nonlinear Multiscale Method},
+  journal = {IEEE Transactions on Image Processing},
+  volume  = {6},
+  number  = {6},
+  pages   = {888--895},
+  year    = {1997},
+  doi     = {10.1109/83.585238}
+}
+
+@article{pratt1978,
+  author  = {William K. Pratt},
+  title   = {Digital Image Processing},
+  journal = {Wiley-Interscience, New York},
+  year    = {1978},
+  note    = {Original definition of Pratt's Figure of Merit for edge localisation}
+}
+
+% ---- Microscopy datasets -------------------------------------
+
+@misc{bbbc005,
+  author       = {{BBBC Team}},
+  title        = {{BBBC005}: Image Set {v1}, {MCF}-7 Breast Cancer Cells},
+  howpublished = {\url{https://bbbc.broadinstitute.org/BBBC005}},
+  year         = {2009},
+  note         = {Broad Bioimage Benchmark Collection}
+}
+
+@misc{bbbc034,
+  author       = {{BBBC Team}},
+  title        = {{BBBC034}: Human Induced Pluripotent Stem Cells},
+  howpublished = {\url{https://bbbc.broadinstitute.org/BBBC034}},
+  year         = {2015},
+  note         = {Broad Bioimage Benchmark Collection}
+}
+
+@misc{fluogowt1,
+  author       = {{Cell Tracking Challenge}},
+  title        = {{Fluo-N2DH-GOWT1}: {GFP}-Tagged {GOWT1} Mouse Stem Cells},
+  howpublished = {\url{http://celltrackingchallenge.net/}},
+  year         = {2015},
+  note         = {Cell Tracking Challenge benchmark dataset}
+}
+
+% ---- Course project specification ---------------------------
+
+@misc{spec,
+  author       = {{CSE 4106 Course Team}},
+  title        = {{CSE 4106 Project Idea on Filtering}},
+  howpublished = {Department of Computer Science and Engineering, Rajshahi University of Engineering and Technology},
+  year         = {2026},
+  note         = {Course project specification; outlines CO/PO mapping and required sections}
+}
