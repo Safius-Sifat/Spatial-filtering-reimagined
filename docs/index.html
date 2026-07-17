@@ -27,6 +27,8 @@
         --ink: #0f0f0f;
         --ink-2: #2a2a2a;
         --rule: #0f0f0f;
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        --stagger-step: 60ms;
       }
       html,
       body {
@@ -1669,6 +1671,64 @@
       .s9-metric .bars-row .bar-col:nth-child(7) .bar {
         background: var(--cream-2);
       }
+
+      /* ════════════════════════════════════════════════════════════════════════
+         ENTRANCE ANIMATIONS  (editorial / confident)
+         Triggered by the deck-stage `slidechange` event adding `.is-visible`
+         to a `[data-stagger]` container. Each child with `.anim-*` transitions
+         from its initial state to the final state on the next frame. The
+         `--i` custom prop on each element sets the stagger delay.
+         ════════════════════════════════════════════════════════════════════════ */
+      .anim-fade-up {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.7s var(--ease-out-expo),
+          transform 0.7s var(--ease-out-expo);
+      }
+      .anim-slide-l {
+        opacity: 0;
+        transform: translateX(-40px);
+        transition: opacity 0.7s var(--ease-out-expo),
+          transform 0.7s var(--ease-out-expo);
+      }
+      .anim-slide-r {
+        opacity: 0;
+        transform: translateX(40px);
+        transition: opacity 0.7s var(--ease-out-expo),
+          transform 0.7s var(--ease-out-expo);
+      }
+      .anim-scale-in {
+        opacity: 0;
+        transform: scale(0.95);
+        transition: opacity 0.6s var(--ease-out-expo),
+          transform 0.6s var(--ease-out-expo);
+      }
+      /* Stagger via the --i custom prop set inline */
+      .anim-fade-up,
+      .anim-slide-l,
+      .anim-slide-r,
+      .anim-scale-in {
+        transition-delay: calc(var(--i, 0) * var(--stagger-step));
+      }
+      /* When the slide is active, drive everything to its final state */
+      [data-stagger].is-visible .anim-fade-up,
+      [data-stagger].is-visible .anim-slide-l,
+      [data-stagger].is-visible .anim-slide-r,
+      [data-stagger].is-visible .anim-scale-in {
+        opacity: 1;
+        transform: none;
+      }
+      /* Reduced motion: drop transforms, fade opacity only */
+      @media (prefers-reduced-motion: reduce) {
+        .anim-fade-up,
+        .anim-slide-l,
+        .anim-slide-r,
+        .anim-scale-in {
+          transform: none !important;
+          transition-duration: 0.2s;
+          transition-delay: 0ms !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1676,18 +1736,18 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 1 — TITLE / POSTER
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s1" data-label="01 Title">
-        <div class="tagline">
+      <section class="s1" data-label="01 Title" data-stagger>
+        <div class="tagline anim-fade-up" style="--i: 0">
           <span></span>VOL.&nbsp;01 &nbsp;/&nbsp; CSE&nbsp;4106 &nbsp;/&nbsp;
           EDITION&nbsp;JULY&nbsp;2026
         </div>
 
         <div class="title display">
-          <span class="row">Spatial Filters,</span>
-          <span class="row case2">re-<br />examined.</span>
+          <span class="row anim-fade-up" style="--i: 1">Spatial Filters,</span>
+          <span class="row case2 anim-fade-up" style="--i: 2">re-<br />examined.</span>
         </div>
 
-        <div class="footnote">
+        <div class="footnote anim-fade-up" style="--i: 3">
           An investigation of two custom spatial filters — AVGF and NGKCS —
           against four standard filters, across three public microscopy datasets
           at three Poisson–Gaussian noise regimes.
@@ -1703,26 +1763,26 @@
           class="poster"
           aria-label="BBBC005 sample under three filter conditions"
         >
-          <div class="strip-header">
+          <div class="strip-header anim-fade-up" style="--i: 4">
             <span class="ttl">PLATE B23 / BBBC005</span>
             <span class="ix">256 × 256</span>
           </div>
           <div class="strip">
-            <div class="frame">
+            <div class="frame anim-scale-in" style="--i: 5">
               <div class="lbl">Original</div>
               <img
                 src="assets/bbbc005_sample_256.png"
                 alt="BBBC005 original sample"
               />
             </div>
-            <div class="frame noisy">
+            <div class="frame noisy anim-scale-in" style="--i: 6">
               <div class="lbl">Noisy · Heavy</div>
               <img
                 src="assets/bbbc005_heavy_noisy.png"
                 alt="BBBC005 heavy noise regime"
               />
             </div>
-            <div class="frame avgf">
+            <div class="frame avgf anim-scale-in" style="--i: 7">
               <div class="lbl">AVGF · Custom</div>
               <img
                 src="assets/bbbc005_heavy_AVGF_Custom.png"
@@ -1730,7 +1790,7 @@
               />
             </div>
           </div>
-          <div class="caption">
+          <div class="caption anim-fade-up" style="--i: 8">
             FILM-STRIP · THREE STAGES OF A SPATIAL FILTER
           </div>
         </div>
@@ -1739,16 +1799,16 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 2 — PROBLEM STATEMENT (section intro)
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s2" data-label="02 Problem">
-        <div class="topbar">
+      <section class="s2" data-label="02 Problem" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>SECTION&nbsp;01&nbsp;&nbsp;·&nbsp;&nbsp;THE PROBLEM</div>
           <div class="pill">CHAPTER&nbsp;OPENER</div>
         </div>
 
-        <div class="kicker">A Note Before We Begin</div>
-        <h1 class="h">Microscope noise<br />eats cell<br />boundaries.</h1>
+        <div class="kicker anim-fade-up" style="--i: 1">A Note Before We Begin</div>
+        <h1 class="h anim-fade-up" style="--i: 2">Microscope noise<br />eats cell<br />boundaries.</h1>
 
-        <div class="body-col">
+        <div class="body-col anim-fade-up" style="--i: 3">
           <p>
             Fluorescence microscopy is a Poisson–Gaussian noise field: gain and
             read noise ride on top of photon shot noise. Standard denoisers
@@ -1764,7 +1824,7 @@
           </p>
         </div>
 
-        <div class="marker">
+        <div class="marker anim-fade-up" style="--i: 4">
           SPATIAL FILTERING<br />FOR NOISE-ROBUST MICROSCOPY
         </div>
         <div class="ix" aria-hidden="true"><div class="circ"></div></div>
@@ -1773,14 +1833,14 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 3 — EVIDENCE: original vs heavy-noisy BBBC005
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s3" data-label="03 Evidence">
-        <div class="topbar">
+      <section class="s3" data-label="03 Evidence" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>SECTION&nbsp;01&nbsp;&nbsp;·&nbsp;&nbsp;EVIDENCE</div>
           <div class="pill">VISUAL</div>
         </div>
 
-        <h1 class="h">Same scene. Two very<br />different readings.</h1>
-        <p class="sub">
+        <h1 class="h anim-fade-up" style="--i: 1">Same scene. Two very<br />different readings.</h1>
+        <p class="sub anim-fade-up" style="--i: 2">
           BBBC005 v1 image B23, public dataset of human breast cancer cells. On
           the left, the clean field. On the right, the same field corrupted with
           the <strong>heavy</strong> Poisson–Gaussian noise regime we use
@@ -1788,7 +1848,7 @@
         </p>
 
         <div class="pair">
-          <div class="panel">
+          <div class="panel anim-slide-l" style="--i: 3">
             <span class="tag">ORIGINAL · 256×256</span>
             <img
               src="assets/bbbc005_sample_256.png"
@@ -1799,7 +1859,7 @@
               read clearly. Nuclei distinct.
             </div>
           </div>
-          <div class="panel noisy">
+          <div class="panel noisy anim-slide-r" style="--i: 4">
             <span class="tag">HEAVY NOISE REGIME</span>
             <img
               src="assets/bbbc005_heavy_noisy.png"
@@ -1817,16 +1877,16 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 4 — GAP / TRADE-OFF MATRIX
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s4-gap" data-label="04 Gap">
-        <div class="topbar">
+      <section class="s4-gap" data-label="04 Gap" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>SECTION&nbsp;02&nbsp;&nbsp;·&nbsp;&nbsp;GAP</div>
           <div class="pill">TRADE-OFF</div>
         </div>
 
-        <h1 class="h">Standard filters<br />force a bad trade.</h1>
+        <h1 class="h anim-fade-up" style="--i: 1">Standard filters<br />force a bad trade.</h1>
 
         <div class="matrix">
-          <div class="cell c1">
+          <div class="cell c1 anim-scale-in" style="--i: 2">
             <div class="name">Linear<br />Smoothing</div>
             <div class="ex">
               Averages neighbouring pixels with fixed weights. Removes noise;
@@ -1834,7 +1894,7 @@
             </div>
             <div class="example">Box · Gaussian</div>
           </div>
-          <div class="cell c2">
+          <div class="cell c2 anim-scale-in" style="--i: 3">
             <div class="name">Non-linear<br />Smoothing</div>
             <div class="ex">
               Median over a neighbourhood. Preserves edges better than Box,
@@ -1842,7 +1902,7 @@
             </div>
             <div class="example">Median · Bilateral</div>
           </div>
-          <div class="cell c3">
+          <div class="cell c3 anim-scale-in" style="--i: 4">
             <div class="name">Linear<br />Sharpening</div>
             <div class="ex">
               Differential operator + threshold. Amplifies noise pixels as if
@@ -1850,7 +1910,7 @@
             </div>
             <div class="example">Sobel · Laplacian</div>
           </div>
-          <div class="cell c4">
+          <div class="cell c4 anim-scale-in" style="--i: 5">
             <div class="name">Mask-based<br />Sharpening</div>
             <div class="ex">
               Original minus blurred. Aggressive sharpening. Edge halos appear.
@@ -1864,18 +1924,18 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 5 — METHOD / PROCESS FLOW
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s6" data-label="05 Method">
-        <div class="topbar">
+      <section class="s6" data-label="05 Method" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>SECTION&nbsp;03&nbsp;&nbsp;·&nbsp;&nbsp;METHOD</div>
           <div class="pill">FOUR&nbsp;STEPS</div>
         </div>
 
-        <h1 class="h">A four-step<br />investigation.</h1>
+        <h1 class="h anim-fade-up" style="--i: 1">A four-step<br />investigation.</h1>
 
         <div class="header-line"></div>
 
         <div class="flow">
-          <div class="step s-1">
+          <div class="step s-1 anim-scale-in" style="--i: 2">
             <div class="n">01</div>
             <div class="t">Select</div>
             <div class="d">
@@ -1884,7 +1944,7 @@
               heavy). 7 filter instances to compare.
             </div>
           </div>
-          <div class="step s-2">
+          <div class="step s-2 anim-scale-in" style="--i: 3">
             <div class="n">02</div>
             <div class="t">Implement</div>
             <div class="d">
@@ -1893,7 +1953,7 @@
               — designed to lean on noise statistics rather than fight them.
             </div>
           </div>
-          <div class="step s-3">
+          <div class="step s-3 anim-scale-in" style="--i: 4">
             <div class="n">03</div>
             <div class="t">Sweep</div>
             <div class="d">
@@ -1901,7 +1961,7 @@
               sweet spot. PSNR, SSIM, EPI, Pratt's FoM, IoU tracked per setting.
             </div>
           </div>
-          <div class="step s-4">
+          <div class="step s-4 anim-scale-in" style="--i: 5">
             <div class="n">04</div>
             <div class="t">Compare</div>
             <div class="d">
@@ -1916,16 +1976,16 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 6 — INVESTIGATIVE SCOPE (stat grid 2x2)
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s3-stats" data-label="06 Scope">
-        <div class="topbar">
+      <section class="s3-stats" data-label="06 Scope" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>BY&nbsp;THE&nbsp;NUMBERS</div>
           <div class="pill">SCOPE</div>
         </div>
 
-        <h1 class="h">THE SCOPE<br />OF THE STUDY.</h1>
+        <h1 class="h anim-fade-up" style="--i: 1">THE SCOPE<br />OF THE STUDY.</h1>
 
         <div class="grid">
-          <div class="cell c1">
+          <div class="cell c1 anim-fade-up" style="--i: 2">
             <div class="corner mono">/01</div>
             <div class="num-wrap"><div class="num">3</div></div>
             <div>
@@ -1936,7 +1996,7 @@
               </div>
             </div>
           </div>
-          <div class="cell c2">
+          <div class="cell c2 anim-fade-up" style="--i: 3">
             <div class="corner mono">/02</div>
             <div class="num-wrap"><div class="num">3</div></div>
             <div>
@@ -1947,7 +2007,7 @@
               </div>
             </div>
           </div>
-          <div class="cell c3">
+          <div class="cell c3 anim-fade-up" style="--i: 4">
             <div class="corner mono">/03</div>
             <div class="num-wrap"><div class="num">6</div></div>
             <div>
@@ -1958,7 +2018,7 @@
               </div>
             </div>
           </div>
-          <div class="cell c4">
+          <div class="cell c4 anim-fade-up" style="--i: 5">
             <div class="corner mono">/04</div>
             <div class="num-wrap"><div class="num">6</div></div>
             <div>
@@ -1975,20 +2035,20 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 7 — STANDARD FILTER 1 — BOX (linear smoothing)
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s7-formula" data-label="07 Box">
-        <div class="topbar">
+      <section class="s7-formula" data-label="07 Box" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>STANDARD&nbsp;·&nbsp;&nbsp;01&nbsp;/&nbsp;04</div>
           <div class="pill">LINEAR&nbsp;SMOOTHING</div>
         </div>
 
-        <h1 class="h">Box filter.</h1>
-        <p class="sub">
+        <h1 class="h anim-fade-up" style="--i: 1">Box filter.</h1>
+        <p class="sub anim-fade-up" style="--i: 2">
           The workhorse of image processing: every output pixel is the
           arithmetic mean of a 3×3 neighbourhood. Linear, separable, fast — and
           indiscriminately destructive to edges.
         </p>
 
-        <div class="formula-card">
+        <div class="formula-card anim-scale-in" style="--i: 3">
           <div class="head">
             <span class="index">Standard · Linear Smoothing</span>
             <span class="name">Box 3×3</span>
@@ -2009,7 +2069,7 @@
             <div class="formula">
               g(x,&nbsp;y) = (1/9) · Σ<sub>i,j∈N</sub> f(x+i,&nbsp;y+j)
             </div>
-            <div class="pros-cons">
+            <div class="pros-cons anim-fade-up" style="--i: 4">
               <div>
                 <div class="h">PROS</div>
                 <div class="li">Cheap, separable, parallelizable</div>
@@ -2030,20 +2090,20 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 8 — STANDARD FILTER 2 — MEDIAN
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s7-formula" data-label="08 Median">
-        <div class="topbar">
+      <section class="s7-formula" data-label="08 Median" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>STANDARD&nbsp;·&nbsp;&nbsp;02&nbsp;/&nbsp;04</div>
           <div class="pill">NON-LINEAR&nbsp;SMOOTHING</div>
         </div>
 
-        <h1 class="h">Median filter.</h1>
-        <p class="sub">
+        <h1 class="h anim-fade-up" style="--i: 1">Median filter.</h1>
+        <p class="sub anim-fade-up" style="--i: 2">
           Replace each pixel by the median of its 3×3 neighbourhood. Non-linear,
           ordering-based — handles salt-and-pepper style outliers cheaply, but
           cannot distinguish noise-edge from signal-edge.
         </p>
 
-        <div class="formula-card">
+        <div class="formula-card anim-scale-in" style="--i: 3">
           <div class="head">
             <span class="index">Standard · Non-Linear Smoothing</span>
             <span class="name">Median 3×3</span>
@@ -2065,7 +2125,7 @@
               g(x,&nbsp;y) = median{ f(x+i,&nbsp;y+j) : i,j&nbsp;∈&nbsp;{-1,0,1}
               }
             </div>
-            <div class="pros-cons">
+            <div class="pros-cons anim-fade-up" style="--i: 4">
               <div>
                 <div class="h">PROS</div>
                 <div class="li">Preserves edges (no halos)</div>
@@ -2086,20 +2146,20 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 9 — STANDARD FILTERS 3 + 4 — SOBEL + UNSHARP (combined)
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s9-two" data-label="09 Sobel/Unsharp">
-        <div class="topbar">
+      <section class="s9-two" data-label="09 Sobel/Unsharp" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>STANDARD&nbsp;·&nbsp;&nbsp;03–04&nbsp;/&nbsp;04</div>
           <div class="pill">SHARPENING</div>
         </div>
 
-        <h1 class="h">Sobel &amp; Unsharp mask.</h1>
-        <p class="sub">
+        <h1 class="h anim-fade-up" style="--i: 1">Sobel &amp; Unsharp mask.</h1>
+        <p class="sub anim-fade-up" style="--i: 2">
           Two sharpening paths: Sobel is a gradient operator applied additively
           back onto the noisy field. Unsharp mask subtracts a blurred copy from
           the original. Both are useful on clean data, both amplify noise.
         </p>
 
-        <div class="card">
+        <div class="card anim-scale-in" style="--i: 3">
           <!-- Row 1: title strip -->
           <div class="card-head">
             <span class="ix">Standard · Sharpening</span>
@@ -2110,7 +2170,7 @@
           <!-- Row 2: three columns — kernel | sob-formula | unsh-formula -->
           <div class="card-body">
             <!-- LEFT: kernel -->
-            <div class="col">
+            <div class="col anim-fade-up" style="--i: 4">
               <div class="col-lbl">Sobel kernel</div>
               <div class="k3">
                 <div>−1</div>
@@ -2129,7 +2189,7 @@
             </div>
 
             <!-- MIDDLE: Sobel formula -->
-            <div class="col">
+            <div class="col anim-fade-up" style="--i: 5">
               <div class="col-lbl">Sobel sharpen</div>
               <div class="fx">
                 <span class="lbl">Formula</span>
@@ -2141,7 +2201,7 @@
             </div>
 
             <!-- RIGHT: Unsharp formula -->
-            <div class="col">
+            <div class="col anim-fade-up" style="--i: 6">
               <div class="col-lbl">Unsharp mask</div>
               <div class="fx">
                 <span class="lbl">Formula</span>
@@ -2152,7 +2212,7 @@
           </div>
 
           <!-- Row 3: pros/cons -->
-          <div class="pros-cons">
+          <div class="pros-cons anim-fade-up" style="--i: 7">
             <div>
               <div class="h">PROS</div>
               <div class="li">Reveals structure</div>
@@ -2174,14 +2234,14 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 10 — CUSTOM FILTER 1 — AVGF
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s10-custom" data-label="10 AVGF">
-        <div class="topbar">
+      <section class="s10-custom" data-label="10 AVGF" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>CUSTOM&nbsp;·&nbsp;&nbsp;01&nbsp;/&nbsp;02</div>
           <div class="pill">AVGF</div>
         </div>
 
-        <h1 class="h">AVGF — adaptive, variance-gated.</h1>
-        <p class="sub">
+        <h1 class="h anim-fade-up" style="--i: 1">AVGF — adaptive, variance-gated.</h1>
+        <p class="sub anim-fade-up" style="--i: 2">
           <strong>Adaptive Variance-Gaussian Filter.</strong> A
           Gaussian-weighted average whose per-pixel variance estimate gates how
           much neighbouring pixels contribute. Smooths homogeneous regions
@@ -2190,7 +2250,7 @@
         </p>
 
         <div class="grid">
-          <div class="panel">
+          <div class="panel anim-slide-l" style="--i: 3">
             <h3>Design rationale</h3>
             <div class="pix">
               g(x,&nbsp;y) = (1/Z) · Σ<sub>(i,j)∈N</sub> w(i,j) ·
@@ -2203,7 +2263,7 @@
               · (1 + β · Var(N)))
             </div>
           </div>
-          <div class="panel">
+          <div class="panel anim-slide-r" style="--i: 4">
             <h3>Parameter sweep — PSNR vs β</h3>
             <img
               class="sweep"
@@ -2220,14 +2280,14 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 11 — CUSTOM FILTER 2 — NGKCS
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s10-custom s11" data-label="11 NGKCS">
-        <div class="topbar">
+      <section class="s10-custom s11" data-label="11 NGKCS" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>CUSTOM&nbsp;·&nbsp;&nbsp;02&nbsp;/&nbsp;02</div>
           <div class="pill">NGKCS</div>
         </div>
 
-        <h1 class="h">NGKCS — noise-gated<br />Kirsch sharpening.</h1>
-        <p class="sub">
+        <h1 class="h anim-fade-up" style="--i: 1">NGKCS — noise-gated<br />Kirsch sharpening.</h1>
+        <p class="sub anim-fade-up" style="--i: 2">
           <strong>Noise-Gated Kirsch Compass Sharpening.</strong> A Kirsch
           compass operator produces eight directional edge responses. Each is
           gated by a noise-budget estimator: when local variance is below the
@@ -2236,7 +2296,7 @@
         </p>
 
         <div class="grid">
-          <div class="panel">
+          <div class="panel anim-slide-l" style="--i: 3">
             <h3>Design rationale</h3>
             <div class="pix">
               g(x,&nbsp;y) = f(x,y) + Σ<sub>k=0..7</sub> γ<sub>k</sub>(x,y) ·
@@ -2246,7 +2306,7 @@
               where K<sub>k</sub> is the k&#8209;th Kirsch compass kernel.
             </div>
           </div>
-          <div class="panel">
+          <div class="panel anim-slide-r" style="--i: 4">
             <h3>Parameter sweep — FoM vs noise budget</h3>
             <img
               class="sweep"
@@ -2265,20 +2325,20 @@
        SLIDE 12 — 6-FILTER VISUAL COMPARISON GRID
        BBBC005 heavy, Fluo realistic, BBBC034 realistic — one row each
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s12-grid" data-label="12 Grid">
-        <div class="topbar">
+      <section class="s12-grid" data-label="12 Grid" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>VISUAL&nbsp;COMPARISON</div>
           <div class="pill">GRID&nbsp;3&nbsp;×&nbsp;6</div>
         </div>
 
-        <h1 class="h">Six filters, three datasets.</h1>
-        <p class="sub">
+        <h1 class="h anim-fade-up" style="--i: 1">Six filters, three datasets.</h1>
+        <p class="sub anim-fade-up" style="--i: 2">
           Picked one representative case per dataset (heavy / realistic /
           realistic). Each column shows the same field through a different
           filter.
         </p>
 
-        <div class="gridwrap">
+        <div class="gridwrap anim-scale-in" style="--i: 3">
           <div
             class="row-label"
             style="
@@ -2393,14 +2453,14 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 13 — QUANTITATIVE METRICS (chart of all 6 PSNR, SSIM, FoM)
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s9-metric" data-label="13 Metrics">
-        <div class="topbar">
+      <section class="s9-metric" data-label="13 Metrics" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>QUANTITATIVE&nbsp;RESULTS</div>
           <div class="pill">AVG&nbsp;·&nbsp;9&nbsp;SETTINGS</div>
         </div>
 
-        <h1 class="h">Across three datasets and three noise regimes.</h1>
-        <p class="sub">
+        <h1 class="h anim-fade-up" style="--i: 1">Across three datasets and three noise regimes.</h1>
+        <p class="sub anim-fade-up" style="--i: 2">
           Average over all 9 (dataset × regime) configurations. Source:
           <span class="mono">results/tables/all_results.csv</span>. The two
           custom filters (AVGF, NGKCS) shown on the right alongside the four
@@ -2408,14 +2468,14 @@
         </p>
 
         <div class="chart-wrap">
-          <div class="header">
+          <div class="header anim-fade-up" style="--i: 3">
             <h3>PSNR (dB) · higher is better</h3>
             <div class="axis-labels">
               averaged across 9 dataset × regime settings
             </div>
           </div>
           <div class="bars-row">
-            <div class="bar-col">
+            <div class="bar-col anim-fade-up" style="--i: 4">
               <span class="bar-val">29.1</span>
               <div
                 class="fill"
@@ -2423,7 +2483,7 @@
               ></div>
               <span class="x-label">Box 3×3</span>
             </div>
-            <div class="bar-col">
+            <div class="bar-col anim-fade-up" style="--i: 5">
               <span class="bar-val">28.2</span>
               <div
                 class="fill"
@@ -2431,7 +2491,7 @@
               ></div>
               <span class="x-label">Median</span>
             </div>
-            <div class="bar-col">
+            <div class="bar-col anim-fade-up" style="--i: 6">
               <span class="bar-val">25.4</span>
               <div
                 class="fill"
@@ -2448,7 +2508,7 @@
                 >AVGF ★</span
               >
             </div>
-            <div class="bar-col">
+            <div class="bar-col anim-fade-up" style="--i: 7">
               <span class="bar-val">21.8</span>
               <div
                 class="fill"
@@ -2456,7 +2516,7 @@
               ></div>
               <span class="x-label">Noisy</span>
             </div>
-            <div class="bar-col">
+            <div class="bar-col anim-fade-up" style="--i: 8">
               <span class="bar-val">21.1</span>
               <div
                 class="fill"
@@ -2473,7 +2533,7 @@
                 >NGKCS ★</span
               >
             </div>
-            <div class="bar-col">
+            <div class="bar-col anim-fade-up" style="--i: 9">
               <span class="bar-val">20.6</span>
               <div
                 class="fill"
@@ -2481,7 +2541,7 @@
               ></div>
               <span class="x-label">Sobel</span>
             </div>
-            <div class="bar-col">
+            <div class="bar-col anim-fade-up" style="--i: 10">
               <span class="bar-val">16.6</span>
               <div
                 class="fill"
@@ -2490,28 +2550,28 @@
               <span class="x-label">Unsharp</span>
             </div>
           </div>
-          <div class="legend">★ = custom design · box = standard baseline</div>
+          <div class="legend anim-fade-up" style="--i: 11">★ = custom design · box = standard baseline</div>
         </div>
       </section>
 
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 14 — CANNY OVERLAY (qualitative sharpening evidence)
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s14-canny" data-label="14 Canny">
-        <div class="topbar">
+      <section class="s14-canny" data-label="14 Canny" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>QUALITATIVE&nbsp;EVIDENCE</div>
           <div class="pill">CANNY&nbsp;·&nbsp;σ&nbsp;=&nbsp;1.5</div>
         </div>
 
-        <h1 class="h">What the edges look like.</h1>
-        <p class="sub">
+        <h1 class="h anim-fade-up" style="--i: 1">What the edges look like.</h1>
+        <p class="sub anim-fade-up" style="--i: 2">
           Same BBBC005 heavy-noise frame, Canny edges (σ=1.5, σ_auto, no
           post-processing) drawn in red on top of each filter's output. The
           diagonals we care about: clean cell boundaries on the lines; scattered
           noise-edges on the surfaces.
         </p>
 
-        <div class="stage">
+        <div class="stage anim-scale-in" style="--i: 3">
           <img
             src="assets/canny_bbbc005_heavy.png"
             alt="Canny edge overlays for all 6 filters on BBBC005 heavy"
@@ -2527,46 +2587,46 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 15 — CRITICAL COMPARISON TABLE (where custom wins / loses)
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s7-compare" data-label="15 Where it wins">
-        <div class="topbar">
+      <section class="s7-compare" data-label="15 Where it wins" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>CRITICAL&nbsp;COMPARISON</div>
           <div class="pill">CUSTOM&nbsp;VS&nbsp;STANDARD</div>
         </div>
 
-        <h1 class="h">Where the custom designs land.</h1>
+        <h1 class="h anim-fade-up" style="--i: 1">Where the custom designs land.</h1>
 
         <div class="table">
-          <div class="row head">
+          <div class="row head anim-fade-up" style="--i: 2">
             <div>Metric</div>
             <div>AVGF (custom)</div>
             <div>NGKCS (custom)</div>
             <div>Best standard</div>
           </div>
-          <div class="row">
+          <div class="row anim-fade-up" style="--i: 3">
             <div class="label">PSNR (dB)</div>
             <div class="col-pink">25.4</div>
             <div class="col-orange">21.1</div>
             <div class="col-green">29.1 — Box</div>
           </div>
-          <div class="row">
+          <div class="row anim-fade-up" style="--i: 4">
             <div class="label">SSIM</div>
             <div class="col-pink">0.476</div>
             <div class="col-orange">0.227</div>
             <div class="col-green">0.701 — Median</div>
           </div>
-          <div class="row">
+          <div class="row anim-fade-up" style="--i: 5">
             <div class="label">MSE</div>
             <div class="col-pink">344</div>
             <div class="col-orange">848</div>
             <div class="col-green">132 — Box</div>
           </div>
-          <div class="row">
+          <div class="row anim-fade-up" style="--i: 6">
             <div class="label">Pratt FoM</div>
             <div class="col-cream">0.580</div>
             <div class="col-cream">0.598</div>
             <div class="col-cream">0.599 — Box</div>
           </div>
-          <div class="row">
+          <div class="row anim-fade-up" style="--i: 7">
             <div class="label">Segmentation IoU</div>
             <div class="col-pink">0.676</div>
             <div class="col-orange">0.267</div>
@@ -2578,14 +2638,14 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 16 — LIMITATIONS / HONEST ANALYSIS
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s16-limits" data-label="16 Limits">
-        <div class="topbar">
+      <section class="s16-limits" data-label="16 Limits" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>LIMITATIONS</div>
           <div class="pill">HONEST&nbsp;READOUT</div>
         </div>
 
-        <h1 class="h">Where the custom loses.</h1>
-        <p class="sub">
+        <h1 class="h anim-fade-up" style="--i: 1">Where the custom loses.</h1>
+        <p class="sub anim-fade-up" style="--i: 2">
           The averaged bars below — PSNR, SSIM, Pratt's Figure of Merit — three
           different ways of asking "how close is this reconstruction to the
           clean reference?". The custom designs do not top any of them. The
@@ -2593,7 +2653,7 @@
           strongest standard wins across all three metrics.
         </p>
         <div class="trio">
-          <div class="bar-card">
+          <div class="bar-card anim-fade-up" style="--i: 3">
             <h3>PSNR</h3>
             <img src="assets/fig_bar_psnr.png" alt="Averaged PSNR bar chart" />
             <div class="takeaway">
@@ -2602,7 +2662,7 @@
               custom designs sit between those and the noisy baseline.
             </div>
           </div>
-          <div class="bar-card">
+          <div class="bar-card anim-fade-up" style="--i: 4">
             <h3>SSIM</h3>
             <img src="assets/fig_bar_ssim.png" alt="Averaged SSIM bar chart" />
             <div class="takeaway">
@@ -2612,7 +2672,7 @@
               fidelity matters.
             </div>
           </div>
-          <div class="bar-card">
+          <div class="bar-card anim-fade-up" style="--i: 5">
             <h3>Pratt FoM</h3>
             <img
               src="assets/fig_bar_fom.png"
@@ -2631,16 +2691,16 @@
       <!-- ════════════════════════════════════════════════════════════════════
        SLIDE 17 — CLOSING / Q&A
        ════════════════════════════════════════════════════════════════════ -->
-      <section class="s8-closing" data-label="17 Q&A">
-        <div class="topbar">
+      <section class="s8-closing" data-label="17 Q&A" data-stagger>
+        <div class="topbar anim-fade-up" style="--i: 0">
           <div>END&nbsp;OF&nbsp;DECK</div>
           <div class="pill">Q&amp;A</div>
         </div>
 
-        <h1 class="h">THANK<br />YOU.</h1>
+        <h1 class="h anim-fade-up" style="--i: 1">THANK<br />YOU.</h1>
         <!-- add empty space -->
 
-        <p class="strap">
+        <p class="strap anim-fade-up" style="--i: 2">
           <!-- Open for questions on the parameter sweeps, the metric choice, and the design trade-offs. The full pipeline, figures, and CSV results are on the project disk.<br/><br/> -->
           <span
             style="
@@ -2686,5 +2746,34 @@
         </div>
       </section>
     </deck-stage>
+    <script>
+      // ────────────────────────────────────────────────────────────────────
+      // Entrance animation driver — listens for the deck-stage `slidechange`
+      // event, resets the prior slide's stagger container back to its initial
+      // state, and on the next double-rAF re-applies `.is-visible` to the new
+      // slide's `[data-stagger]` element. Double-rAF ensures the initial state
+      // registers before the visible state lands, so re-entering a slide
+      // re-runs the reveal cleanly.
+      // ────────────────────────────────────────────────────────────────────
+      (function () {
+        const stage = document.querySelector('deck-stage');
+        if (!stage) return;
+
+        stage.addEventListener('slidechange', (e) => {
+          // Reset every previously-active stagger container
+          stage
+            .querySelectorAll('[data-stagger].is-visible')
+            .forEach((el) => el.classList.remove('is-visible'));
+
+          const slide = e.detail && e.detail.slide;
+          if (!slide) return;
+
+          const root = slide.querySelector('[data-stagger]') || slide;
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => root.classList.add('is-visible'));
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
