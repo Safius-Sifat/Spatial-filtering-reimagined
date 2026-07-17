@@ -1,0 +1,72 @@
+# ════════════════════════════════════════════════════════════════════════
+# Spatial Filters Project — Git ignore rules
+# ════════════════════════════════════════════════════════════════════════
+
+# ─── Python ────────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# ─── macOS / OS junk ──────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─── Editor / IDE ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── Large / regenerable data ─────────────────────────────────────────
+# Raw datasets (downloaded separately, very large, public on the web)
+data/raw/
+data/ground_truth/
+
+# Curated 256×256 picks we used for figures are small — keep in git
+# (data/selected/ — small, 556K, documents which samples were studied)
+
+# ─── Build outputs ────────────────────────────────────────────────────
+# Compiled LaTeX artefacts
+docs/report.pdf
+docs/report.aux
+docs/report.log
+docs/report.toc
+docs/report.lof
+docs/report.lot
+docs/report.out
+docs/report.bbl
+docs/report.blg
+docs/report.fls
+docs/report.fdb_latexmk
+docs/report.synctex.gz
+docs/_minted-report/
+
+# Slide preview scratch (one-shot HTMLs for picking a visual style)
+docs/.frontend-slides/
+
+# ─── Logs / runtime artefacts ─────────────────────────────────────────
+results/logs/
+*.log
+
+# ─── Misc / local-only ────────────────────────────────────────────────
+*.bak
+*.tmp
+*.orig
